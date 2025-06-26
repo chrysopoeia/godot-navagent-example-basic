@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://qf8xx5a5008q"]
+
+[ext_resource type="Script" uid="uid://b1cekrsv3os" path="res://node_2d.gd" id="1_tx1oa"]
+[ext_resource type="Texture2D" uid="uid://qyxvv05n1onr" path="res://icon.svg" id="2_0e48y"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ij4k4"]
+vertices = PackedVector2Array(124.758, 99.0312, 9.21875, 99.9688, -15.0391, -12, 118.227, -12)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-20, -16, 6, 104, 128, 104, 122, -16)])
+agent_radius = 4.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o2rc0"]
+vertices = PackedVector2Array(311.953, 122.617, 139.719, 173.719, 131.211, 12, 246.711, 12)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(127, 8, 136, 179, 318, 125, 249, 8)])
+agent_radius = 4.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_tx1oa"]
+vertices = PackedVector2Array(124.25, 98.0625, 10.0391, 99.9297, 10.9609, 11.9609, 132.609, -25.4609)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(7, 9, 6, 104, 128, 102, 137, -31)])
+agent_radius = 4.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_u4j70"]
+vertices = PackedVector2Array(156.422, -32.1328, 124.781, 98.2812, 3.39062, 109.57, 11.8672, 9.67188, 87.7266, -74.8281)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(8, 8, -1, 114, 128, 102, 161, -34, 87, -80)])
+agent_radius = 4.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kynkj"]
+vertices = PackedVector2Array(341.852, -7.97656, 402.773, 84.3125, 160.562, 95.0234, 129.703, -6.97656, -7.59375, 125.141, 5.71094, -42.1875, 132.68, -48.7734)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 3), PackedInt32Array(6, 3, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2, -46, -12, 130, 161, 99, 410, 88, 344, -12, 134, -11, 137, -53)])
+agent_radius = 4.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_0e48y"]
+vertices = PackedVector2Array(255.062, -66.7969, 335.578, -12.8203, 228.82, 31.5781, 137.398, -49.0234, 159.156, 95.2578, -7.59375, 125.141, 5.71094, -42.1875)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 3, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2, -46, -12, 130, 161, 99, 231, 35, 344, -12, 256, -71, 137, -53)])
+agent_radius = 4.0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_tx1oa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(78, 69)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_0e48y")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Sprite2D"]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+debug_enabled = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(27, 36)
+navigation_polygon = SubResource("NavigationPolygon_ij4k4")
+
+[node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
+position = Vector2(15, -8)
+navigation_polygon = SubResource("NavigationPolygon_o2rc0")
+
+[node name="NavigationRegion2D3" type="NavigationRegion2D" parent="."]
+position = Vector2(135, 162)
+navigation_polygon = SubResource("NavigationPolygon_tx1oa")
+
+[node name="NavigationRegion2D4" type="NavigationRegion2D" parent="."]
+position = Vector2(254, 211)
+navigation_polygon = SubResource("NavigationPolygon_u4j70")
+
+[node name="NavigationRegion2D5" type="NavigationRegion2D" parent="."]
+position = Vector2(123, 333)
+navigation_polygon = SubResource("NavigationPolygon_kynkj")
+
+[node name="NavigationRegion2D6" type="NavigationRegion2D" parent="."]
+position = Vector2(485, 151)
+navigation_polygon = SubResource("NavigationPolygon_0e48y")
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="."]
+start_position = Vector2(259, 47)
+end_position = Vector2(603, 151)
+
+[connection signal="link_reached" from="Sprite2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_link_reached"]
+[connection signal="navigation_finished" from="Sprite2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="path_changed" from="Sprite2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_path_changed"]
+[connection signal="target_reached" from="Sprite2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
+[connection signal="velocity_computed" from="Sprite2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="waypoint_reached" from="Sprite2D/NavigationAgent2D" to="." method="_on_navigation_agent_2d_waypoint_reached"]
